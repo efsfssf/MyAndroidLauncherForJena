@@ -1,0 +1,87 @@
+{
+	"workbench.colorCustomizations": {
+		"statusBar.background": "#333333FF",
+		"statusBar.foreground": "#e8e8e8",
+		"statusBar.noFolderBackground": "#b82e00",
+		"statusBar.debuggingBackground": "#b82e00",
+		"titleBar.inactiveBackground": "#b82e00",
+		"titleBar.inactiveForeground": "#333333",
+		"titleBar.activeBackground": "#333333",
+		"titleBar.activeForeground": "#e8e8e8",
+		"activityBarBadge.background": "#b82e00"
+	},
+	"workbench.iconTheme": "material-icon-theme",
+	"editor.formatOnSave": true,
+	"editor.rulers": [
+		120
+	],
+	"editor.tokenColorCustomizations": {
+		"comments": "#629755"
+	},
+	"editor.tabSize": 2,
+	"editor.insertSpaces": true,
+	"[dart]": {
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"editor.selectionHighlight": false,
+		"editor.suggest.snippetsPreventQuickSuggestions": false,
+		"editor.suggestSelection": "first",
+		"editor.tabCompletion": "onlySnippets",
+		"editor.wordBasedSuggestions": false
+	},
+	"explorer.fileNesting.enabled": true,
+	// Controls whether file nests are automatically expanded. `explorer.fileNesting.enabled` must be set for this to take effect.
+	"explorer.fileNesting.expand": false,
+	// Controls nesting of files in the explorer. `explorer.fileNesting.enabled` must be set for this to take effect. Each __Item__ represents a parent pattern and may contain a single `*` character that matches any string. Each __Value__ represents a comma separated list of the child patterns that should be shown nested under a given parent. Child patterns may contain several special tokens:
+	// - `${capture}`: Matches the resolved value of the `*` from the parent pattern
+	// - `${basename}`: Matches the parent file's basename, the `file` in `file.ts`
+	// - `${extname}`: Matches the parent file's extension, the `ts` in `file.ts`
+	// - `${dirname}`: Matches the parent file's directory name, the `src` in `src/file.ts`
+	// - `*`:  Matches any string, may only be used once per child pattern
+	"explorer.fileNesting.patterns": {
+		"gradle.properties": "gradlew,gradlew.bat,*.iml,settings.gradle",
+		"Podfile": "Podfile.lock",
+		"build.gradle": "gradle.properties, local.properties, google-services.json",
+		"main.dart": "generated_plugin_registrant.dart, main_app.dart, firebase_options.dart, env.dart",
+		"pubspec.yaml": ".gitlab-ci.yml,pubspec.lock,pubspec_overrides.yaml,.packages,.flutter-plugins,.flutter-plugins-dependencies,.metadata,*.iml,analysis_options.yaml",
+		"*.dart": "${capture}.g.dart, ${capture}.gк.dart, ${capture}.freezed.dart",
+		"*_bloc.dart": "${capture}_event.dart, ${capture}_state.dart, ${capture}_freezed.dart",
+		"README.md": "*.md"
+	},
+	"files.exclude": {
+		"**/.dart_tool": true,
+		"**/.DS_Store": true,
+		"**/.flutter-*": true,
+		"**/.git": true,
+		// "**/.gitignore": true,
+		"**/.hg": true,
+		"**/.idea": true,
+		"**/.metadata": true,
+		"**/.svn": true,
+		"**/.gitlab": true,
+		// "**/.vscode": true,
+		// "**/build": true,
+		"**/CVS": true,
+		"**/key*": true,
+		"**/Thumbs.db": true,
+		"**/*.iml": true,
+		// "**/other": true,
+		"**/android/.gradle": true,
+		"**/android/gradle": true,
+		"**/android/gradlew*": true,
+		"**/android/settings*": true,
+		"**/ios/.symlinks": true,
+		// "**/builds": true
+	},
+	"editor.cursorBlinking": "smooth",
+	"editor.cursorSmoothCaretAnimation": "on",
+	"editor.formatOnPaste": true,
+	"editor.formatOnType": true,
+	"editor.minimap.enabled": false,
+	"editor.suggest.preview": true,
+	"editor.suggest.showDeprecated": false,
+	"window.autoDetectColorScheme": true,
+	"window.closeWhenEmpty": true,
+	"editor.fontSize": 12,
+	"svg.preview.background": "transparent"
+}
