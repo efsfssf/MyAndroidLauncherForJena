@@ -100,6 +100,26 @@ class _LockScreenState extends State<LockScreen> with WidgetsBindingObserver {
             return true;
           }
           break;
+        
+        case LogicalKeyboardKey.space:
+          _leftKeyClick = now;
+          setStateIfMounted(
+              () => _unlockText = context.l10n.pressStar); // 'Press *'
+          _comboTimer?.cancel();
+          _comboTimer = Timer(const Duration(seconds: comboSeconds), () {
+            setStateIfMounted(
+                () => _unlockText = context.l10n.unlock); // 'Unlock'
+          });
+          return false;
+        case LogicalKeyboardKey.digit8: // STAR
+          if ((now - _leftKeyClick) < comboSeconds * 1000) {
+            log('\n\n!!! UNLOCKED!!!\n\n');
+            locator.get<AppRouter>().replace(const HomeRoute());
+            return true;
+          }
+          break;
+
+        
         case LogicalKeyboardKey.goBack:
         case LogicalKeyboardKey.endCall:
         default:

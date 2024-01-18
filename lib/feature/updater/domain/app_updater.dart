@@ -126,7 +126,7 @@ class AppUpdater {
   Future<Map?> _fetchLatestInfoFromGitHub() async {
     final dio = Dio();
     final response = await dio.get(
-      'https://api.github.com/repos/MrJohnDev/qin_launcher1/releases/latest',
+      'https://api.github.com/repos/efsfssf/MyAndroidLauncherForJena/releases/latest',
     );
     if (response.statusCode == 200) {
       final json = response.data;
