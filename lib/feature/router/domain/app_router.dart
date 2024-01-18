@@ -5,6 +5,8 @@ import 'package:launcher1/app/ui/screen/home_screen.dart';
 import 'package:launcher1/app/ui/screen/lock_screen.dart';
 import 'package:launcher1/feature/router/presentation/anim/fade_route.dart';
 
+import '../../../app/ui/screen/settings_screen.dart';
+
 part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page|Screen,Route')
@@ -29,6 +31,12 @@ class AppRouter extends _$AppRouter {
           barrierColor: Colors.black,
           path: AllAppsMenuScreen.path,
           page: AllAppsMenuRoute.page,
+          transitionsBuilder: _fadeAnim,
+        ),
+        CustomRoute(
+          barrierColor: Colors.black,
+          path: SettingsScreen.path,
+          page: SettingsRoute.page,
           transitionsBuilder: _fadeAnim,
         ),
         RedirectRoute(path: '*', redirectTo: '/'),

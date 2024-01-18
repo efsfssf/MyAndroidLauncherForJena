@@ -31,7 +31,7 @@ class MainAppBuilder implements AppBuilder {
 
     return _GlobalProviders(
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: true,
         key: navigatorKey,
         // debugShowCheckedModeBanner: false,
 

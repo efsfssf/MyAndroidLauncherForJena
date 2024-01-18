@@ -3,15 +3,20 @@ import 'package:launcher1/app/ui/components/apps_item_view.dart';
 import 'package:launcher1/app/ui/components/scroll_effect.dart';
 import 'package:launcher1/gen/assets.gen.dart';
 
+import '../../../feature/router/domain/app_router.dart';
+import '../../di/init_di.dart';
+
 class AppItem {
   final String title;
   final String package;
   final String icon;
+  final VoidCallback? action;
 
   AppItem({
     required this.title,
     required this.package,
     required this.icon,
+    this.action,
   });
 }
 
@@ -43,6 +48,12 @@ class _AppsGridState extends State<AppsGrid> {
       title: 'Календарь',
       package: 'com.android.calendar',
       icon: Assets.images.icCalendar,
+    ),
+    AppItem(
+      title: 'Настройки',
+      package: '',
+      icon: Assets.images.icCalendar,
+      action: () => locator.get<AppRouter>().replace(const SettingsRoute()),
     )
   ];
 

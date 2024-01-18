@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.mrjohndev.launcher1"
+    namespace "com.dandomi.launcher"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -42,7 +42,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.mrjohndev.launcher1"
+        applicationId "com.dandomi.launcher"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion
@@ -54,10 +54,10 @@ android {
      signingConfigs {
             config {
                 storeFile file("./../../other/cert/release.keystore")
-                storePassword 'GRNFT4n64e64rjysdhr'
+                storePassword 'Wbt2TdPb'
 
-                keyAlias      'Launcher1'
-                keyPassword   'GRNFT4n64e64rjysdhr'
+                keyAlias      'alias_name'
+                keyPassword   'Wbt2TdPb'
             }
         }
 
@@ -71,7 +71,7 @@ android {
             // shrinkResources true
             ndk {// Filter for architectures supported by Flutter.
                 // ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
-                abiFilters 'armeabi-v7a','arm64-v8a'
+                abiFilters 'armeabi-v7a'
             }
         }
         debug {
@@ -86,7 +86,7 @@ android {
 
             ndk {// Filter for architectures supported by Flutter.
                 // ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
-                abiFilters 'armeabi-v7a'
+                abiFilters 'armeabi-v7a', 'x86_64'
             }
         }
     }

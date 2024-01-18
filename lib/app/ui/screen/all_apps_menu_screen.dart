@@ -339,7 +339,7 @@ class _AppItemViewState extends State<_AppItemView> {
   void _handleKeyPress(RawKeyEvent event) {
     if (event.runtimeType != RawKeyDownEvent) return;
 
-    if (event.logicalKey == LogicalKeyboardKey.select) {
+    if (event.logicalKey == LogicalKeyboardKey.select || event.logicalKey == LogicalKeyboardKey.enter) {
       _openApp();
     }
   }

@@ -1,4 +1,4 @@
-package com.mrjohndev.launcher1
+package com.dandomi.launcher
 
 import io.flutter.embedding.android.FlutterActivity
 

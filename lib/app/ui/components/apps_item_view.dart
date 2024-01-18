@@ -30,9 +30,13 @@ class _AppsItemViewState extends State<AppsItemView> {
   void _handleKeyPress(RawKeyEvent event) {
     if (event.runtimeType != RawKeyDownEvent) return;
 
-    if (event.logicalKey == LogicalKeyboardKey.select) {
+    if (event.logicalKey == LogicalKeyboardKey.select || event.logicalKey == LogicalKeyboardKey.enter) {
       final pn = widget.item.package;
-      _openApp(pn);
+      if (pn == "") {
+        locator.get<AppRouter>().replace(const SettingsRoute());
+      } else {
+        _openApp(pn);
+      }
     }
 
     if (event is RawKeyDownEvent && event.data is RawKeyEventDataAndroid) {
