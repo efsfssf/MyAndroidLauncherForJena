@@ -57,38 +57,54 @@ class _AppsGridState extends State<AppsGrid> {
     )
   ];
 
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(); // Инициализируйте _pageController здесь
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose(); // Не забудьте уничтожить его
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    const crossAxisCount = 2;
+    const spacing = crossAxisCount * 6.0;
 
-    // Для маленьких экранов 2 столбца, иначе 3
-    // final crossAxisCount = screenWidth < 600 ? 2 : 3;
+    // Вычисляем количество страниц
+    final pageCount = (_apps.length / (crossAxisCount * 2)).ceil();
 
-    // Вычисляем количество столбцов
-    // Минимальное количество столбцов - 1
-    final crossAxisCount = (screenWidth / 150).floor().clamp(1, 5);
 
-    final spacing = crossAxisCount * 6.0;
-
-    return AbsorbPointer(
-      // Disable Touch
-      child: Center(
-        child: ScrollConfiguration(
-          behavior: ScrollEffect(),
-          child: GridView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(16),
-            physics: const BouncingScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount, // Количество столбцов
-              crossAxisSpacing: spacing, // Расстояние между столбцами
-              mainAxisSpacing: spacing, // Расстояние между строками
-            ),
-            itemCount: _apps.length,
-            itemBuilder: (context, index) => AppsItemView(item: _apps[index]),
+    return PageView.builder(
+      controller: _pageController,
+      itemCount: pageCount,
+      itemBuilder: (context, pageIndex) {
+        return GridView.builder(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(16),
+          physics: const BouncingScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount, // Количество столбцов
+            crossAxisSpacing: spacing, // Расстояние между столбцами
+            mainAxisSpacing: spacing, // Расстояние между строками
           ),
-        ),
-      ),
+          itemCount: crossAxisCount * 2,
+          itemBuilder: (context, index) {
+            final appIndex = pageIndex * crossAxisCount * 2 + index;
+            if (appIndex < _apps.length) {
+              return AppsItemView(item: _apps[appIndex], pageController: _pageController, isFirst: appIndex % 4 == 0 ? true : false);
+            } else {
+              return const SizedBox.shrink(); // Пустой виджет для недостающих элементов
+            }
+          },
+        );
+      },
     );
   }
 }

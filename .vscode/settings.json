@@ -27,7 +27,7 @@
 		"editor.suggest.snippetsPreventQuickSuggestions": false,
 		"editor.suggestSelection": "first",
 		"editor.tabCompletion": "onlySnippets",
-		"editor.wordBasedSuggestions": false
+		"editor.wordBasedSuggestions": "off"
 	},
 	"explorer.fileNesting.enabled": true,
 	// Controls whether file nests are automatically expanded. `explorer.fileNesting.enabled` must be set for this to take effect.
