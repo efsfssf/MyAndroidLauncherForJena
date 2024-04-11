@@ -86,15 +86,15 @@ class _AppsItemViewState extends State<AppsItemView> {
     }
 
     if (event is RawKeyDownEvent && event.data is RawKeyEventDataAndroid) {
-      final num2 = event.logicalKey == LogicalKeyboardKey.digit2;
+      final num8 = event.logicalKey == LogicalKeyboardKey.digit8;
       final num9 = event.logicalKey == LogicalKeyboardKey.digit9;
 
-      if (num2 || num9) {
+      if (num8 || num9) {
         if (_holdTimer == null || !_holdTimer!.isActive) {
           // Запуск таймера при нажатии клавиши
           _holdTimer = Timer(_holdDuration, () {
             // Действие при долгом нажатии
-            if (num2) {
+            if (num8) {
               locator
                   .get<AppRouter>()
                   .replace(AllAppsMenuRoute(onlyUserApps: false));
