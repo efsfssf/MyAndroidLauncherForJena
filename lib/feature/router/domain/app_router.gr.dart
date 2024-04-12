@@ -37,12 +37,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LockScreen(),
       );
     },
-    SettingsRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const SettingsScreen(),
-      );
-    },
   };
 }
 
@@ -108,20 +102,6 @@ class LockRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LockRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [SettingsScreen]
-class SettingsRoute extends PageRouteInfo<void> {
-  const SettingsRoute({List<PageRouteInfo>? children})
-      : super(
-          SettingsRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SettingsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

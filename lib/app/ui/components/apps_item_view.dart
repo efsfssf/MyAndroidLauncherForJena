@@ -10,18 +10,14 @@ import 'package:launcher1/feature/router/domain/app_router.dart';
 
 class AppsItemView extends StatefulWidget {
   final AppItem item;
-  final PageController pageController;
-  final bool isFirst;
 
-  const AppsItemView({super.key, required this.item, required this.pageController, this.isFirst = false});
+  const AppsItemView({super.key, required this.item});
 
   @override
   State<AppsItemView> createState() => _AppsItemViewState();
 }
 
 class _AppsItemViewState extends State<AppsItemView> {
-
-
   final colorMain = Colors.white;
   bool _isSelected = false;
 
@@ -29,87 +25,29 @@ class _AppsItemViewState extends State<AppsItemView> {
 
   Timer? _holdTimer;
   final Duration _holdDuration =
-      const Duration(seconds: 1); // Длительность долгого нажатия
+      const Duration(seconds: 8); // Длительность долгого нажатия
 
-
-  int _currentIndex = 1;
-  //List<FocusNode> _focusNodes = List.generate(2, (index) => FocusNode());
   void _handleKeyPress(RawKeyEvent event) {
-
-    if (event.runtimeType != RawKeyDownEvent) return;
-
-    // Делаем переход на следующюю страницу
-    if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-      _currentIndex++; // В счётчике меняем текущюю страницу
-
-      if (_currentIndex == 3) {
-        widget.pageController.nextPage(duration: Duration(milliseconds: 400), curve: Curves.easeInOut).then((_) {
-          // Здесь устанавливаем фокус на первый элемент новой страницы
-          //FocusScope.of(context).requestFocus(_focusNodes[2]);
-        });
-        _currentIndex = 1;
-      }
-
-      /*if (!widget.pageController.hasClients || widget.pageController.page == widget.pageController.initialPage) {
-        // Если мы находимся на первой странице, переходим на следующую
-        widget.pageController.nextPage(duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
-      }*/
-    } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) { // Делаем переход на предыдущюю страницу
-      // В счётчике меняем текущюю страницу
-      _currentIndex--;
-
-      if (_currentIndex == 0) {
-        widget.pageController.previousPage(duration: Duration(milliseconds: 400), curve: Curves.easeInOut); // переход
-        _currentIndex = 2;
-      }
-
-      /*if (!widget.pageController.hasClients || widget.pageController.page == widget.pageController.initialPage) {
-        // Если мы находимся на последней странице, переходим на предыдущую
-        widget.pageController.previousPage(duration: Duration(milliseconds: 400), curve: Curves.easeInOut);
-      }*/
-    }
-
-
-
-
-
-
-    if (event.runtimeType != RawKeyDownEvent) return;
-
-    if (event.logicalKey == LogicalKeyboardKey.select || event.logicalKey == LogicalKeyboardKey.enter) {
-      final pn = widget.item.package;
-      if (pn == "") {
-        locator.get<AppRouter>().replace(const SettingsRoute());
-      } else {
-        _openApp(pn);
-      }
-    }
-
-    if (event is RawKeyDownEvent && event.data is RawKeyEventDataAndroid) {
-      final num8 = event.logicalKey == LogicalKeyboardKey.digit8;
-      final num9 = event.logicalKey == LogicalKeyboardKey.digit9;
-
-      if (num8 || num9) {
+    if (event is RawKeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.digit6) {
         if (_holdTimer == null || !_holdTimer!.isActive) {
-          // Запуск таймера при нажатии клавиши
-          _holdTimer = Timer(_holdDuration, () {
-            // Действие при долгом нажатии
-            if (num8) {
-              locator
-                  .get<AppRouter>()
-                  .replace(AllAppsMenuRoute(onlyUserApps: false));
-            } else if (num9) {
-              locator
-                  .get<AppRouter>()
-                  .replace(AllAppsMenuRoute(onlyUserApps: true));
-            }
+          _holdTimer = Timer(Duration(seconds: 8), () {
+            locator
+                    .get<AppRouter>()
+                    .replace(AllAppsMenuRoute(onlyUserApps: false));
           });
         }
-      } else if (event is RawKeyUpEvent) {
-        // Отмена таймера при отпускании клавиши
-        _holdTimer?.cancel();
       }
+    } else if (event is RawKeyUpEvent) {
+      _holdTimer?.cancel();
     }
+
+    if (event.logicalKey == LogicalKeyboardKey.select) {
+      final pn = widget.item.package;
+      _openApp(pn);
+    }
+
+    
   }
 
   Future<void> _openApp(String pn) async {
@@ -119,25 +57,17 @@ class _AppsItemViewState extends State<AppsItemView> {
   }
 
   @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     _focusNode.addListener(() {
       setState(() => _isSelected = _focusNode.hasFocus);
     });
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.isFirst) {
-        _focusNode.requestFocus();
-      }
-    });
+  }
 
-
-
+  @override
+  void dispose() {
+    _holdTimer?.cancel();
+    super.dispose();
   }
 
   @override
