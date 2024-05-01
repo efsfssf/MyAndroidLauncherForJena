@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,9 +27,18 @@ class _AppsItemViewState extends State<AppsItemView> {
   final Duration _holdDuration =
       const Duration(seconds: 8); // Длительность долгого нажатия
 
+  bool _isDigit3Pressed = false;
+  bool _isDigit6Pressed = false;
+
   void _handleKeyPress(RawKeyEvent event) {
     if (event is RawKeyDownEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.digit3) {
+        _isDigit3Pressed = true;
+      }
       if (event.logicalKey == LogicalKeyboardKey.digit6) {
+        _isDigit6Pressed = true;
+      }
+      if (_isDigit3Pressed && _isDigit6Pressed) {
         if (_holdTimer == null || !_holdTimer!.isActive) {
           _holdTimer = Timer(Duration(seconds: 8), () {
             locator
@@ -39,6 +48,12 @@ class _AppsItemViewState extends State<AppsItemView> {
         }
       }
     } else if (event is RawKeyUpEvent) {
+      if (event.logicalKey == LogicalKeyboardKey.digit3) {
+        _isDigit3Pressed = false;
+      }
+      if (event.logicalKey == LogicalKeyboardKey.digit6) {
+        _isDigit6Pressed = false;
+      }
       _holdTimer?.cancel();
     }
 
@@ -46,9 +61,9 @@ class _AppsItemViewState extends State<AppsItemView> {
       final pn = widget.item.package;
       _openApp(pn);
     }
-
-    
   }
+
+
 
   Future<void> _openApp(String pn) async {
     if (await DeviceApps.isAppInstalled(pn)) {
